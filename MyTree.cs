@@ -17,10 +17,9 @@ namespace DataTest
     {
 
         public int NodesNum { get; private set; }
-        public int TreeLevel { get; private set; } = -1;
-
         public Node<T> Root { get; set; } = null!;
         public List<Node<T>[]> Levels { get; set; } = null!;
+        public int TreeLevel { get; private set; } = -1;
 
         public void Add(T value)
         {
@@ -80,6 +79,11 @@ namespace DataTest
         }
         public void PrintTree()
         {
+            if (TreeLevel == -1)
+            {
+                Console.WriteLine("Tree is Empty");
+                return;
+            }
             Print(Root);
         }
         private void Print(Node<T> node, string space = " ")
@@ -87,17 +91,17 @@ namespace DataTest
             Console.WriteLine(space + node.Value);
 
             if (node.Left != null)
-            {
                 Print(node.Left, space + "  ");
-            }
             if (node.Right != null)
-            {
                 Print(node.Right, space + "  ");
-            }
-
         }
         public void PrintLevels()
         {
+            if (TreeLevel == -1)
+            {
+                Console.WriteLine("Tree is Empty");
+                return;
+            }
             int level = 1;
             foreach (var Lvl in Levels)
             {
