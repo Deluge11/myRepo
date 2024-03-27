@@ -23,6 +23,8 @@ namespace DataTest
 
         public void Add(String value)
         {
+            if (value.Equals(""))
+                return;
             if (TreeLevel == -1)
             {
                 TreeLevel++;
