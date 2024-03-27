@@ -18,18 +18,18 @@ namespace DataTest
     {
         public int TreeLevel { get; private set; } = -1;
         public int NodesNum { get; private set; }
-        public Node Root { get; set; } = null!;
+        public Node Root { get;private set; } = null!;
         public List<Node[]> Levels { get; set; } = null!;
-
         public void Add(String value)
         {
             if (value.Equals(""))
                 return;
+
             if (TreeLevel == -1)
             {
                 TreeLevel++;
                 NodesNum++;
-                Root = new Node(value, TreeLevel, 0, GetSize(value));
+                Root = new Node(value, TreeLevel, 0);
                 Levels = new List<Node[]>();
                 Levels.Add(new Node[] { Root });
             }
@@ -54,7 +54,7 @@ namespace DataTest
                     if (Levels[lastArray][i] == null)
                     {
                         NodesNum++;
-                        Levels[lastArray][i] = new Node(value, TreeLevel, i, GetSize(value));
+                        Levels[lastArray][i] = new Node(value, TreeLevel, i);
                         if (i % 2 == 0)
                         {
                             Levels[TreeLevel - 1][i / 2].Left = Levels[lastArray][i];
@@ -79,14 +79,13 @@ namespace DataTest
                 Levels.Add(newArr);
                 lastArray = Levels.Count - 1;
                 NodesNum++;
-                Levels[lastArray][0] = new Node(value, TreeLevel, 0, GetSize(value));
+                Levels[lastArray][0] = new Node(value, TreeLevel, 0);
                 Levels[lastArray - 1][0].Left = Levels[lastArray][0];
                 HeapSort(value, 0);
                 return;
 
             }
         }
-
         private void HeapSort(string Value, int nodeIndex)
         {
             int ValueSize = GetSize(Value);
@@ -102,11 +101,13 @@ namespace DataTest
                 }     
                 if (i == 0)
                 {
-                    int UpperTreeLastIndex = Levels[CheckLevel - 1].Length - 1;
-                    if (ValueSize < Levels[CheckLevel - 1][UpperTreeLastIndex].ValueSize) // <> ASC DISC
+                    int UpperLastIndex = Levels[CheckLevel - 1].Length - 1;
+                    Node Upper = Levels[CheckLevel - 1][UpperLastIndex];
+
+                    if (ValueSize < Upper.ValueSize) // <> ASC DISC
                     {
-                        Levels[CheckLevel][0].SetValue(Levels[CheckLevel - 1][UpperTreeLastIndex].Value);
-                        Levels[CheckLevel - 1][UpperTreeLastIndex].SetValue(Value);
+                        Levels[CheckLevel][0].SetValue(Upper.Value);
+                        Upper.SetValue(Value);
                         
                         i = Levels[--CheckLevel].Length - 1;
                         flipped = true;
@@ -185,8 +186,6 @@ namespace DataTest
                 Console.WriteLine("==============");
             }
         }
-
-
     }
 
     public class Node:BinaryTree
@@ -210,15 +209,15 @@ namespace DataTest
             ValueSize = base.GetSize(val);
         }
 
-        public Node(String value, int Level, int inArr, int ValSize)
+        public Node(String value, int Level, int inArr)
         {
 
             //LeftIndex = 2 * IndexOfNode + 1;
             //RightIndex = 2 * IndexOfNode + 2;
-            Value = value;
+
+            SetValue(value);
             NodeLevel = Level;
             NodeinArr = inArr;
-            ValueSize = ValSize;
 
             IndexOfNode = NodeinArr + (int)Math.Pow(2, NodeLevel) - 1;
             ParentIndex = IndexOfNode % 2 == 0 ? IndexOfNode / 2 - 1 : IndexOfNode / 2;
