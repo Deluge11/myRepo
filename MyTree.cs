@@ -101,7 +101,7 @@ namespace DataTest
                 if (i == 0)
                 {
                     int UpperTreeLastIndex = Levels[CheckLevel - 1].Length - 1;
-                    if (ValueSize < Levels[CheckLevel - 1][UpperTreeLastIndex].ValueSize)
+                    if (ValueSize < Levels[CheckLevel - 1][UpperTreeLastIndex].ValueSize) // <> ASC DISC
                     {
                         Levels[CheckLevel][0].SetValue(Levels[CheckLevel - 1][UpperTreeLastIndex].Value);
                         Levels[CheckLevel - 1][UpperTreeLastIndex].SetValue(Value);
@@ -115,7 +115,7 @@ namespace DataTest
               
                 else if (i > 0)
                 {
-                    if (ValueSize < Levels[CheckLevel][i - 1].ValueSize)
+                    if (ValueSize < Levels[CheckLevel][i - 1].ValueSize) // <> ASC DISC
                     {
                         Levels[CheckLevel][i].SetValue(Levels[CheckLevel][i - 1].Value);
                         Levels[CheckLevel][i - 1].SetValue(Value);
