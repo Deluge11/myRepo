@@ -249,7 +249,7 @@ namespace DataTest
                         if (size == nodesArr[++Ptr].ValueSize)
                             if (nodesArr[Ptr].Value == value)
                             {
-                                Console.WriteLine("Found in Level " + (nodesArr[Mid].NodeLevel + 1) + " on Index number: " + nodesArr[Mid].NodeinArr);
+                                Console.WriteLine("Found in Level " + (nodesArr[Ptr].NodeLevel + 1) + " on Index number: " + nodesArr[Ptr].NodeinArr);
                                 return true;
                             }
                     }
@@ -260,7 +260,7 @@ namespace DataTest
                         if (size == nodesArr[--Ptr].ValueSize)
                             if (nodesArr[Ptr].Value == value)
                             {
-                                Console.WriteLine("Found in Level " + (nodesArr[Mid].NodeLevel + 1) + " on Index number: " + nodesArr[Mid].NodeinArr);
+                                Console.WriteLine("Found in Level " + (nodesArr[Ptr].NodeLevel + 1) + " on Index number: " + nodesArr[Ptr].NodeinArr);
                                 return true;
                             }
                     }
